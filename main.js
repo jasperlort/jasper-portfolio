@@ -10,51 +10,51 @@ const FACES = {
   front: {
     id: 'aerointel',
     name: 'AEROINTEL',
-    tagline: 'GPS-denied navigation for autonomous drones in contested environments.',
-    description: 'When satellites fail, AEROINTEL keeps flying. Visual navigation and sensor fusion for defense-grade autonomy.',
+    tagline: 'Unjammable navigation for autonomous drones. When GPS fails, Pathfinder keeps flying.',
+    description: 'Pathfinder is a fully embedded, plug-and-play visual navigation module that replaces GPS using on-board AI—satellite imagery matching, road/building recognition—designed to operate completely offline in GPS/RF-denied environments. TRL7, field-tested, compatible with Ardupilot, PX4, Auterion.',
     meta: [
       { value: '€105K', label: 'MoD Contract' },
-      { value: '2024', label: 'Founded' },
+      { value: 'TRL7', label: 'Readiness' },
     ],
-    tags: ['Defense', 'Computer Vision', 'SLAM', 'Edge AI'],
+    tags: ['Defense', 'Computer Vision', 'SLAM', 'Edge AI', 'MAVLink'],
   },
   back: {
     id: 'dutchdrones',
     name: 'Dutch Drones',
-    tagline: 'Robotic systems for autonomous bridge inspection and maintenance.',
-    description: 'The Netherlands has 24,000+ bridges. We\'re building the drones that keep them standing.',
+    tagline: 'Drone-based bridge cleaning and inspection. Faster, safer, less traffic disruption.',
+    description: 'The Netherlands has 24,000+ bridges. We combine DJI Matrice platforms with high-pressure cleaning systems to treat hard-to-reach bridge components—without personnel at height and with minimal road closures. 2-4x faster than traditional methods.',
     meta: [
       { value: 'RWS', label: 'Pilot Target' },
       { value: '24K+', label: 'Dutch Bridges' },
     ],
-    tags: ['Robotics', 'Infrastructure', 'Automation'],
+    tags: ['Robotics', 'Infrastructure', 'Rijkswaterstaat', 'Automation'],
   },
   right: {
     id: 'datadividend',
     name: 'DataDividend',
-    tagline: 'A marketplace where people sell their data directly to AI companies.',
-    description: 'Your data trains their models. You should get paid. Fair compensation for the fuel that powers machine learning.',
+    tagline: 'Privacy-first marketplace for AI training data. Contributors get paid, buyers get clean rights.',
+    description: 'AI is starving for real-world, permissioned data—and scraping is legally toxic. DataDividend lets anyone upload photos, videos, sensor streams; our system instantly prices each asset based on rarity, quality, and demand. Contributors get paid continuously; buyers get provenance-verified datasets.',
     meta: [
       { value: 'B2B', label: 'Model' },
       { value: 'Mr Joseph', label: 'a.k.a.' },
     ],
-    tags: ['Data Markets', 'AI/ML', 'Privacy'],
+    tags: ['Data Markets', 'AI/ML', 'Privacy', 'Licensing'],
   },
   left: {
     id: 'textme',
     name: 'text.me',
-    tagline: 'AI coaching that lives where you already are—WhatsApp.',
-    description: 'No new app. No friction. Just guidance, accountability, and growth in the chat you use every day.',
+    tagline: 'AI coaching bots that live in WhatsApp. No new app, no friction.',
+    description: 'Personal development, accountability, and guidance—delivered through the chat you already use every day. Meet people where they are instead of asking them to download yet another app.',
     meta: [
       { value: 'B2C', label: 'Model' },
       { value: 'WhatsApp', label: 'Platform' },
     ],
-    tags: ['LLMs', 'Coaching', 'Conversational AI'],
+    tags: ['LLMs', 'Coaching', 'WhatsApp API', 'Conversational AI'],
   },
   top: {
     id: 'about',
     name: 'About',
-    tagline: 'Aerospace engineer building autonomous systems, AI, and defense tech.',
+    tagline: 'Aerospace engineer turned multi-founder. Building autonomous systems, AI products, and defense tech.',
     isAbout: true,
   },
   bottom: {
@@ -482,7 +482,12 @@ function openPanel(data) {
         <div class="timeline-item">
           <div class="timeline-date">2024 — Present</div>
           <div class="timeline-title">Founder × 4</div>
-          <div class="timeline-desc">AEROINTEL · Dutch Drones · DataDividend · text.me</div>
+          <div class="timeline-desc">Defense navigation, bridge robotics, data markets, AI coaching</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2024</div>
+          <div class="timeline-title">€105K MoD Contract</div>
+          <div class="timeline-desc">AEROINTEL — GPS-denied drone navigation R&D</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2020 — Present</div>
