@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jasper Lortije — Founder & Engineer</title>
+    <meta name="description" content="Aerospace engineer building the future of autonomous systems, AI, and defense technology." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="canvas"></canvas>
+      
+      <!-- Loading screen -->
+      <div id="loader">
+        <div class="loader-content">
+          <div class="loader-cube"></div>
+          <p>Initializing...</p>
+        </div>
+      </div>
+
+      <!-- UI Overlay -->
+      <div id="ui">
+        <!-- Header -->
+        <header>
+          <div class="logo">
+            <span class="logo-icon">◆</span>
+            <span class="logo-text">Jasper Lortije</span>
+          </div>
+          <nav>
+            <a href="#" data-face="about">About</a>
+            <a href="#" data-face="contact">Contact</a>
+          </nav>
+        </header>
+
+        <!-- Instructions -->
+        <div id="instructions">
+          <p><span class="key">Drag</span> to rotate · <span class="key">Click</span> to explore</p>
+        </div>
+
+        <!-- Company info panel -->
+        <div id="info-panel" class="hidden">
+          <button id="close-panel" aria-label="Close">×</button>
+          <div id="panel-content"></div>
+        </div>
+
+        <!-- Face indicators -->
+        <div id="face-label">
+          <span class="face-name"></span>
+          <span class="face-tagline"></span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
