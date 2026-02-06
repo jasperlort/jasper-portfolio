@@ -2,6 +2,14 @@ import './style.css';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 
+// Logo URLs
+const LOGOS = {
+  aerointel: '/logos/aerointel.png',
+  dutchdrones: '/logos/dutchdrones.png',
+  datadividend: '/logos/datadividend.svg',
+  textme: '/logos/textme.svg',
+};
+
 // ============================================================
 // DATA
 // ============================================================
@@ -10,51 +18,35 @@ const FACES = {
   front: {
     id: 'aerointel',
     name: 'AEROINTEL',
-    tagline: 'Unjammable navigation for autonomous drones. When GPS fails, Pathfinder keeps flying.',
-    description: 'Pathfinder is a fully embedded, plug-and-play visual navigation module that replaces GPS using on-board AI—satellite imagery matching, road/building recognition—designed to operate completely offline in GPS/RF-denied environments. TRL7, field-tested, compatible with Ardupilot, PX4, Auterion.',
-    meta: [
-      { value: '€105K', label: 'MoD Contract' },
-      { value: 'TRL7', label: 'Readiness' },
-    ],
-    tags: ['Defense', 'Computer Vision', 'SLAM', 'Edge AI', 'MAVLink'],
+    tagline: 'Unjammable navigation for autonomous drones.',
+    description: 'Pathfinder is a fully embedded visual navigation module that replaces GPS using on-board AI—satellite imagery matching, road/building recognition—designed to operate completely offline in GPS/RF-denied environments.',
+    tags: ['Defense', 'Computer Vision', 'SLAM', 'Edge AI'],
   },
   back: {
     id: 'dutchdrones',
     name: 'Dutch Drones',
-    tagline: 'Drone-based bridge cleaning and inspection. Faster, safer, less traffic disruption.',
-    description: 'The Netherlands has 24,000+ bridges. We combine DJI Matrice platforms with high-pressure cleaning systems to treat hard-to-reach bridge components—without personnel at height and with minimal road closures. 2-4x faster than traditional methods.',
-    meta: [
-      { value: 'RWS', label: 'Pilot Target' },
-      { value: '24K+', label: 'Dutch Bridges' },
-    ],
-    tags: ['Robotics', 'Infrastructure', 'Rijkswaterstaat', 'Automation'],
+    tagline: 'Drone-based bridge cleaning and inspection.',
+    description: 'Robotic systems that inspect and clean infrastructure—without personnel at height and with minimal road closures.',
+    tags: ['Robotics', 'Infrastructure', 'Automation'],
   },
   right: {
     id: 'datadividend',
     name: 'DataDividend',
-    tagline: 'Privacy-first marketplace for AI training data. Contributors get paid, buyers get clean rights.',
-    description: 'AI is starving for real-world, permissioned data—and scraping is legally toxic. DataDividend lets anyone upload photos, videos, sensor streams; our system instantly prices each asset based on rarity, quality, and demand. Contributors get paid continuously; buyers get provenance-verified datasets.',
-    meta: [
-      { value: 'B2B', label: 'Model' },
-      { value: 'Mr Joseph', label: 'a.k.a.' },
-    ],
-    tags: ['Data Markets', 'AI/ML', 'Privacy', 'Licensing'],
+    tagline: 'Privacy-first marketplace for AI training data.',
+    description: 'Contributors upload photos, videos, sensor streams. Our system prices each asset based on rarity, quality, and demand. Buyers get provenance-verified datasets with clean rights.',
+    tags: ['Data Markets', 'AI/ML', 'Privacy'],
   },
   left: {
     id: 'textme',
     name: 'text.me',
-    tagline: 'AI coaching bots that live in WhatsApp. No new app, no friction.',
-    description: 'Personal development, accountability, and guidance—delivered through the chat you already use every day. Meet people where they are instead of asking them to download yet another app.',
-    meta: [
-      { value: 'B2C', label: 'Model' },
-      { value: 'WhatsApp', label: 'Platform' },
-    ],
-    tags: ['LLMs', 'Coaching', 'WhatsApp API', 'Conversational AI'],
+    tagline: 'AI coaching that lives in WhatsApp.',
+    description: 'Personal development, accountability, and guidance—delivered through the chat you already use every day.',
+    tags: ['LLMs', 'Coaching', 'Conversational AI'],
   },
   top: {
     id: 'about',
     name: 'About',
-    tagline: 'Aerospace engineer turned multi-founder. Building autonomous systems, AI products, and defense tech.',
+    tagline: 'Aerospace engineer building autonomous systems and AI.',
     isAbout: true,
   },
   bottom: {
@@ -79,6 +71,8 @@ let targetRotation = { x: 0.3, y: 0.5 };
 let mouse = new THREE.Vector2();
 let raycaster = new THREE.Raycaster();
 let abstractShapes = {};
+let logoSprites = {};
+const textureLoader = new THREE.TextureLoader();
 
 function init() {
   clock = new THREE.Clock();
@@ -107,6 +101,7 @@ function init() {
   createWireframeCube();
   createAbstractShapes();
   createFacePlanes();
+  createLogoPlanes();
 
   // Events
   setupEvents();
@@ -354,6 +349,44 @@ function createFacePlanes() {
   });
 }
 
+function createLogoPlanes() {
+  const logoConfigs = {
+    front: { id: 'aerointel', pos: [0, 0, 0.5], rot: [0, 0, 0] },
+    back: { id: 'dutchdrones', pos: [0, 0, -0.5], rot: [0, Math.PI, 0] },
+    right: { id: 'datadividend', pos: [0.5, 0, 0], rot: [0, Math.PI / 2, 0] },
+    left: { id: 'textme', pos: [-0.5, 0, 0], rot: [0, -Math.PI / 2, 0] },
+  };
+
+  Object.entries(logoConfigs).forEach(([face, config]) => {
+    const logoUrl = LOGOS[config.id];
+    if (!logoUrl) return;
+
+    textureLoader.load(logoUrl, (texture) => {
+      texture.colorSpace = THREE.SRGBColorSpace;
+      
+      // Calculate aspect ratio
+      const aspect = texture.image.width / texture.image.height;
+      const height = 0.5;
+      const width = height * aspect;
+      
+      const logoPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(Math.min(width, 1.2), height),
+        new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+          opacity: 0.9,
+          side: THREE.DoubleSide,
+        })
+      );
+      
+      logoPlane.position.set(...config.pos);
+      logoPlane.rotation.set(...config.rot);
+      logoSprites[config.id] = logoPlane;
+      cubeGroup.add(logoPlane);
+    });
+  });
+}
+
 // ============================================================
 // EVENTS
 // ============================================================
@@ -478,27 +511,11 @@ function openPanel(data) {
       <h3>About</h3>
       <h2>Jasper Lortije</h2>
       <p class="tagline">${data.tagline}</p>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-date">2024 — Present</div>
-          <div class="timeline-title">Founder × 4</div>
-          <div class="timeline-desc">Defense navigation, bridge robotics, data markets, AI coaching</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2024</div>
-          <div class="timeline-title">€105K MoD Contract</div>
-          <div class="timeline-desc">AEROINTEL — GPS-denied drone navigation R&D</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2020 — Present</div>
-          <div class="timeline-title">Systems Engineer</div>
-          <div class="timeline-desc">Capgemini Engineering</div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-date">Education</div>
-          <div class="timeline-title">Aerospace Engineering</div>
-          <div class="timeline-desc">TU Delft</div>
-        </div>
+      <p class="description">Aerospace engineering background. Building four ventures across defense, infrastructure, data, and consumer AI.</p>
+      <div class="tags">
+        <span class="tag">TU Delft</span>
+        <span class="tag">Aerospace</span>
+        <span class="tag">Founder</span>
       </div>
     `;
   } else if (data.isContact) {
@@ -534,14 +551,6 @@ function openPanel(data) {
       <h3>Venture</h3>
       <h2>${data.name}</h2>
       <p class="tagline">${data.tagline}</p>
-      <div class="meta">
-        ${data.meta.map(m => `
-          <div class="meta-item">
-            <span class="value">${m.value}</span>
-            <span class="label">${m.label}</span>
-          </div>
-        `).join('')}
-      </div>
       <p class="description">${data.description}</p>
       <div class="tags">
         ${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}

@@ -1,0 +1,10 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple geometric mark + wordmark -->
+  <!-- Mark: Two chat bubbles forming an 'r' shape -->
+  <rect x="2" y="8" width="20" height="16" fill="#1a3d2e"/>
+  <rect x="8" y="18" width="8" height="14" fill="#1a3d2e"/>
+  <rect x="14" y="8" width="10" height="10" fill="#4a8c6f"/>
+  
+  <!-- Wordmark: rico -->
+  <text x="32" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="#1a3d2e">rico</text>
+</svg>
